@@ -199,37 +199,6 @@ static COMPONENT_FUNC(component_render_time)
 
 static COMPONENT_FUNC(component_render_power)
 {
-#if 0
-    struct component_power *data = (struct component_power *) component;
-
-    float x = 0.40 * component->window.render_frame.size.width;
-    float w = 0.50 * component->window.render_frame.size.width;
-    float y = 0.28 * component->window.render_frame.size.height;
-    float h = 0.56 * component->window.render_frame.size.height;
-    float percent = data->percent * 0.01;
-
-    CGMutablePathRef battery_outline = CGPathCreateMutable();
-    CGRect outline = {{ x, y }, { w, h }};
-    CGPathAddRoundedRect(battery_outline, NULL, outline, 2, 2);
-
-    CGMutablePathRef battery_fill = CGPathCreateMutable();
-    CGRect fill = {{ x+0.5f, y+0.5f }, { (w*percent)-0.5f, h-0.5f }};
-    CGPathAddRoundedRect(battery_fill, NULL, fill, 1, 1);
-
-    float g = percent * 1.0f;
-    CGContextSetRGBFillColor(component->window.context, 1.0f-g, g, 0.125f, 0.50f);
-    CGContextAddPath(component->window.context, battery_fill);
-    CGContextFillPath(component->window.context);
-
-    CGContextSetRGBStrokeColor(component->window.context, component->border_color.r, component->border_color.g, component->border_color.b, component->border_color.a);
-    CGContextSetLineWidth(component->window.context, 1);
-    CGContextAddPath(component->window.context, battery_outline);
-    CGContextStrokePath(component->window.context);
-
-    CGContextSetRGBFillColor(component->window.context, component->fg_color.r, component->fg_color.g, component->fg_color.b, component->fg_color.a);
-    draw_text(component, data->icon, 0.10, 0.525, ALIGN_LEFT);
-    draw_text(component, data->output, 0.525, 0.50, ALIGN_CENTER);
-#else
     struct component_power *data = (struct component_power *) component;
 
     float x = 0.10 * component->window.render_frame.size.width;
@@ -259,7 +228,6 @@ static COMPONENT_FUNC(component_render_power)
     CGContextSetRGBFillColor(component->window.context, component->fg_color.r, component->fg_color.g, component->fg_color.b, component->fg_color.a);
     draw_text(component, data->icon, 0.25, 0.545, ALIGN_CENTER);
     draw_text(component, data->output, 0.85, 0.50, ALIGN_RIGHT);
-#endif
 }
 
 static component_func *component_render_map[] =
